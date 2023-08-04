@@ -18,10 +18,6 @@ RUN apk add --no-cache \
     shadow \
     tzdata
 
-RUN groupmod -g 1000 users && \
-    useradd -u 1000 -U -d /config -s /bin/false user && \
-    usermod -G users user
-
 COPY --from=piconsstage /picons.tar.bz2 /picons.tar.bz2
 
 RUN apk add --no-cache \
@@ -162,6 +158,7 @@ RUN apk add --no-cache \
     perl-json \
     py3-requests \
     python3 \
+    shadow \
     uriparser \
     x264 \
     x265 \
@@ -172,6 +169,10 @@ COPY --from=buildstage /tmp/argtable-build/usr/ /usr/
 COPY --from=buildstage /tmp/comskip-build/usr/ /usr/
 COPY --from=buildstage /tmp/tvheadend-build/usr/ /usr/
 COPY --from=buildstage /picons /picons
+
+RUN groupmod -g 1000 users && \
+    useradd -u 1000 -U -d /config -s /bin/false user && \
+    usermod -G users user
 
 EXPOSE 9981 9982
 VOLUME /config
