@@ -1,6 +1,6 @@
 FROM ghcr.io/linuxserver/picons-builder as piconsstage
 
-FROM alpine:3.18 as buildstage
+FROM alpine:3.19 as buildstage
 
 ARG ARGTABLE_VER="2.13"
 
@@ -127,7 +127,7 @@ RUN git clone https://github.com/erikkaashoek/Comskip /tmp/comskip && \
 RUN mkdir -p /picons && \
     tar xf /picons.tar.bz2 -C /picons
 
-FROM alpine:3.18
+FROM alpine:3.19
 
 RUN apk add --no-cache \
     bsd-compat-headers \
@@ -156,6 +156,7 @@ RUN apk add --no-cache \
     perl \
     perl-datetime-format-strptime \
     perl-json \
+    perl-json-xs \
     py3-requests \
     python3 \
     shadow \
